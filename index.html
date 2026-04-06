@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Intelligence | Premium AI Learning Ecosystem</title>
+    <meta name="description" content="NovaMind AI - The ultimate student survival system for distilling video, voice, and handwritten notes into actionable intelligence.">
+    <script>
+        window.process = { env: {} };
+    </script>
+    <script type="importmap">
+    {
+      "imports": {
+        "@google/genai": "https://esm.run/@google/genai"
+      }
+    }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                <span>NovaMind AI</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <p class="nav-section-title">Overview</p>
+            <li class="nav-item active" data-page="dashboard">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </li>
+            <li class="nav-item" data-page="analytics">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics & Growth</span>
+            </li>
+
+            <p class="nav-section-title">AI Distillation</p>
+            <li class="nav-item" data-page="notes">
+                <i class="fas fa-feather-pointed"></i>
+                <span>Note Distiller</span>
+            </li>
+            <li class="nav-item" data-page="video">
+                <i class="fas fa-video"></i>
+                <span>Video Insight</span>
+            </li>
+            <li class="nav-item" data-page="voice">
+                <i class="fas fa-microphone-lines"></i>
+                <span>Voice Notes</span>
+            </li>
+            <li class="nav-item" data-page="scanner">
+                <i class="fas fa-file-signature"></i>
+                <span>Note Scanner</span>
+            </li>
+
+            <p class="nav-section-title">Tools</p>
+            <li class="nav-item" data-page="roadmap">
+                <i class="fas fa-map-signs"></i>
+                <span>Study Roadmap</span>
+            </li>
+            <li class="nav-item" data-page="reminders">
+                <i class="fas fa-bell"></i>
+                <span>Reminders</span>
+            </li>
+            <li class="nav-item" data-page="chatbot">
+                <i class="fas fa-robot"></i>
+                <span>AI Chatbot</span>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="mindful-toggle" id="mindful-toggle">
+                <div class="toggle-circle"></div>
+                <span>Mindfulness Mode</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        
+        <!-- Top Header Bar -->
+        <header class="top-bar">
+            <div class="header-info">
+                <h2 id="page-title">Dashboard</h2>
+                <p id="page-subtitle">Welcome back, Scholar. Your growth journey continues.</p>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">AS</div>
+            </div>
+        </header>
+
+        <!-- Page: Dashboard -->
+        <div id="page-dashboard" class="page active">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <i class="fas fa-calendar-day stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-days">0</span>
+                        <span class="stat-label">Days to Exam</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-fire stat-icon" style="color: #e67e22;"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-streak">0</span>
+                        <span class="stat-label">Study Streak</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-brain stat-icon" style="color: #9b59b6;"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-readiness">0%</span>
+                        <span class="stat-label">Readiness Score</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-hourglass-half stat-icon"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-focus">25:00</span>
+                        <span class="stat-label">Focus Session</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Quick Distill</h3>
+                    <div class="quick-actions-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                        <div class="action-card" onclick="document.querySelector('[data-page=video]').click()">
+                            <i class="fas fa-video"></i>
+                            <span>Video</span>
+                        </div>
+                        <div class="action-card" onclick="document.querySelector('[data-page=voice]').click()">
+                            <i class="fas fa-microphone"></i>
+                            <span>Voice</span>
+                        </div>
+                        <div class="action-card" onclick="document.querySelector('[data-page=scanner]').click()">
+                            <i class="fas fa-camera"></i>
+                            <span>Scanner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-clock"></i> Recent Reminders</h3>
+                    <div id="dashboard-reminders" class="roadmap-container">
+                        <p class="empty-state">No upcoming revisions scheduled.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: Study Roadmap -->
+        <div id="page-roadmap" class="page">
+            <div class="content-grid single-col">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-seedling"></i> Roadmap Engine</h3>
+                    <div class="form-row">
+                        <div class="form-group flex-grow">
+                            <label for="subjects-input">Curriculum Topics</label>
+                            <textarea id="subjects-input" placeholder="Enter subjects separated by commas..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exam-date">Target Deadline</label>
+                            <input type="date" id="exam-date">
+                        </div>
+                    </div>
+                    <button id="generate-btn" class="btn">
+                        Generate Roadmap
+                        <div class="loader" id="gen-loader"></div>
+                    </button>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-map-signs"></i> Your Growth Roadmap</h3>
+                    <div id="plan-output" class="roadmap-container">
+                        <div class="empty-state-large">
+                            <i class="fas fa-wind"></i>
+                            <p>Awaiting curriculum data for roadmap generation...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: Note Distiller -->
+        <div id="page-notes" class="page">
+            <div class="content-grid single-col">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-feather-pointed"></i> Note Distiller</h3>
+                    <div class="file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Upload Study Material (PDF/DOC)</span>
+                        <input type="file" id="file-input" accept=".pdf,.doc,.docx,.txt">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes-input">Source Content</label>
+                        <textarea id="notes-input" placeholder="Paste complex notes here..."></textarea>
+                    </div>
+                    <button id="summarize-btn" class="btn btn-outline">
+                        Distill Intelligence
+                        <div class="loader" id="sum-loader"></div>
+                    </button>
+                    <button class="btn btn-outline" style="margin-top: 1rem; display: none;" id="pdf-export-notes">
+                        <i class="fas fa-file-pdf"></i> Export Distillation as PDF
+                    </button>
+                    <div class="innovation-actions" style="margin-top: 1rem; display: none; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="gen-flashcards-notes" style="flex: 1; min-width: 150px;">
+                            <i class="fas fa-layer-group"></i> Generate Flashcards
+                        </button>
+                        <button class="btn btn-outline" id="view-mindmap-notes" style="flex: 1; min-width: 150px;">
+                            <i class="fas fa-project-diagram"></i> Concept Mind Map
+                        </button>
+                    </div>
+                </div>
+                <div id="summary-output" class="card" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Page: Analytics -->
+        <div id="page-analytics" class="page">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Total Focus Time</span>
+                    <span class="stat-value">12.5h</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Topics Mastered</span>
+                    <span class="stat-value">18</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Avg. Focus Score</span>
+                    <span class="stat-value">88%</span>
+                </div>
+            </div>
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-area"></i> Weekly Progress</h3>
+                    <div class="mock-chart">
+                        <div class="bar" style="height: 40%;"><span>Mon</span></div>
+                        <div class="bar" style="height: 70%;"><span>Tue</span></div>
+                        <div class="bar" style="height: 55%;"><span>Wed</span></div>
+                        <div class="bar" style="height: 90%;"><span>Thu</span></div>
+                        <div class="bar" style="height: 30%;"><span>Fri</span></div>
+                        <div class="bar" style="height: 60%;"><span>Sat</span></div>
+                        <div class="bar" style="height: 80%;"><span>Sun</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Study Pulse</h3>
+                    <div id="study-pulse-grid" class="pulse-grid">
+                        <!-- Heatmap generated via JS -->
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-trophy"></i> Achievements</h3>
+                    <div class="achievement-list">
+                        <div class="achievement-item">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h4>Early Bird</h4>
+                                <p>Studied before 7 AM for 3 days.</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <h4>Deep Diver</h4>
+                                <p>Completed a 2-hour focus session.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: Reminders -->
+        <div id="page-reminders" class="page">
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bell"></i> Set New Reminder</h3>
+                    <div class="form-group">
+                        <label for="reminder-topic">Topic to Revise</label>
+                        <input type="text" id="reminder-topic" placeholder="e.g. Quantum Physics">
+                    </div>
+                    <div class="form-group">
+                        <label for="reminder-time">Reminder Time</label>
+                        <input type="datetime-local" id="reminder-time">
+                    </div>
+                    <button id="add-reminder-btn" class="btn btn-outline">Set Reminder</button>
+                </div>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-clock"></i> All Reminders</h3>
+                    <div id="reminders-list" class="roadmap-container">
+                        <p class="empty-state">No reminders set yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: AI Chatbot -->
+        <div id="page-chatbot" class="page">
+            <div class="content-grid single-col">
+                <div class="card chat-card">
+                    <div class="chat-header">
+                        <div class="bot-info">
+                            <div class="bot-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h4>SI Assistant</h4>
+                                <p>Online | Ready to help</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="message bot">
+                            Hello! I'm your Student Intelligence Assistant. How can I help you with your studies today?
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Ask about study tips, academic advice, or queries...">
+                        <button id="chat-send-btn" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page: Video Insight -->
+        <div id="page-video" class="page">
+            <div class="content-grid single-col">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-video"></i> Video to Summary</h3>
+                    <div class="form-group">
+                        <label for="video-url">YouTube Video URL</label>
+                        <input type="text" id="video-url" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Summary Type</label>
+                        <div class="toggle-group" style="display: flex; gap: 0.5rem; background: #f1f5f9; padding: 0.25rem; border-radius: 0.5rem;">
+                            <button class="toggle-btn active" data-type="short">Short</button>
+                            <button class="toggle-btn" data-type="standard">Standard</button>
+                            <button class="toggle-btn" data-type="deep">Deep Dive</button>
+                        </div>
+                    </div>
+                    <div class="file-upload" id="video-upload">
+                        <i class="fas fa-clapperboard"></i>
+                        <span>Upload Video File (MP4/MOV)</span>
+                        <input type="file" id="video-file-input" accept="video/*" style="display: none;">
+                    </div>
+                    <button id="video-process-btn" class="btn btn-outline">
+                        Distill Video Intelligence
+                        <div class="loader" id="video-loader"></div>
+                    </button>
+                    <button class="btn btn-outline" style="margin-top: 1rem; display: none;" id="pdf-export-video">
+                        <i class="fas fa-file-pdf"></i> Export Video Insight as PDF
+                    </button>
+                    <div class="innovation-actions-video" style="margin-top: 1rem; display: none; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="gen-flashcards-video" style="flex: 1; min-width: 150px;">
+                            <i class="fas fa-layer-group"></i> Magic Flashcards
+                        </button>
+                    </div>
+                </div>
+                <div id="video-summary-output" class="card" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Page: Voice Notes -->
+        <div id="page-voice" class="page">
+            <div class="content-grid single-col">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-microphone-lines"></i> Voice to Summary</h3>
+                    <div class="voice-controls" style="display: flex; flex-direction: column; align-items: center; gap: 2rem; padding: 2rem 0;">
+                        <div class="record-btn-container">
+                            <button id="voice-record-btn" class="btn" style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-size: 1.5rem;">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <div class="visualizer-mock" id="voice-visualizer" style="display: none; height: 40px; display: flex; align-items: center; gap: 4px; margin-top: 1rem;">
+                                <div class="v-bar" style="height: 10px; width: 4px; background: var(--primary); border-radius: 2px;"></div>
+                                <div class="v-bar" style="height: 25px; width: 4px; background: var(--primary); border-radius: 2px;"></div>
+                                <div class="v-bar" style="height: 15px; width: 4px; background: var(--primary); border-radius: 2px;"></div>
+                                <div class="v-bar" style="height: 35px; width: 4px; background: var(--primary); border-radius: 2px;"></div>
+                                <div class="v-bar" style="height: 20px; width: 4px; background: var(--primary); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                        <p id="voice-status" style="color: var(--text-muted); font-size: 0.9rem;">Click to start recording your lecture or thoughts.</p>
+                    </div>
+                    <div class="file-upload" id="audio-upload">
+                        <i class="fas fa-file-audio"></i>
+                        <span>Or Upload Audio File (MP3/WAV)</span>
+                        <input type="file" id="audio-file-input" accept="audio/*" style="display: none;">
+                    </div>
+                    <button id="voice-process-btn" class="btn btn-outline">
+                        Transcribe & Distill
+                        <div class="loader" id="voice-loader"></div>
+                    </button>
+                </div>
+                <div id="voice-summary-output" class="card" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Page: Note Scanner -->
+        <div id="page-scanner" class="page">
+            <div class="content-grid single-col">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-file-signature"></i> Handwritten to Printed</h3>
+                    <div class="file-upload" id="scanner-upload">
+                        <i class="fas fa-camera"></i>
+                        <span>Upload Photo of Handwritten Notes</span>
+                        <input type="file" id="scanner-file-input" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="scanner-preview" style="display: none; margin-bottom: 1.5rem; text-align: center;">
+                        <img id="scanner-img" src="" style="max-width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                    </div>
+                    <button id="scanner-process-btn" class="btn btn-outline">
+                        Digitize Notes
+                        <div class="loader" id="scanner-loader"></div>
+                    </button>
+                </div>
+                <div id="scanner-output" class="card" style="display: none;"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- INNOVATION OVERLAYS -->
+    <div id="flashcard-overlay" class="overlay" style="display: none;">
+        <div class="overlay-content">
+            <button class="close-overlay" id="close-flashcards">&times;</button>
+            <div id="flashcard-container">
+                <!-- Cards injected here -->
+            </div>
+            <div class="overlay-controls" style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 2rem;">
+                <button class="btn btn-outline" id="prev-card" style="width: auto; padding: 0.8rem 1.2rem;"><i class="fas fa-chevron-left"></i></button>
+                <span id="card-progress" style="font-weight: 700; color: var(--accent);">1 / 5</span>
+                <button class="btn btn-outline" id="next-card" style="width: auto; padding: 0.8rem 1.2rem;"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mindmap-overlay" class="overlay" style="display: none;">
+        <div class="overlay-content mindmap-content" style="max-width: 900px; height: 80vh;">
+            <button class="close-overlay" id="close-mindmap">&times;</button>
+            <h3 style="margin-bottom: 2rem; border-left: 4px solid var(--primary); padding-left: 1rem;">Concept Architecture</h3>
+            <div id="mindmap-svg-container" style="height: 100%; border: 1px solid var(--border); border-radius: 1rem; background: #fff; overflow: auto; position: relative;">
+                <!-- SVG injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Intelligence -->
+    <script type="module" src="/src/script.js"></script>
+</body>
+</html>
+
